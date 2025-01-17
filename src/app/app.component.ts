@@ -1,12 +1,31 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ToDoItem } from '@models/toDoItem';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
+  items: ToDoItem[] = [];
   title = 'todo-app';
+
+  newItemText = '';
+
+  toggleItem(item : ToDoItem) {
+    item.isComplete = !item.isComplete;
+    console.log(item);
+  }
+
+  addNewItem() {
+    this.items.push(new ToDoItem(this.newItemText));
+    this.newItemText = '';
+  }
 }
+
+
