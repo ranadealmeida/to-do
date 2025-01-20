@@ -1,5 +1,6 @@
 package com.rana.todo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,10 +17,16 @@ public class Todo {
     private Long id;
 
     private String title;
+
+    @Column(name = "complete")
     private boolean complete;
 
     @Version
     private Long version;
+
+    public Todo() {
+        this.complete = false; 
+    }
 
     public Long getId() {
         return id;
