@@ -1,27 +1,35 @@
 package com.rana.todo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/todos")
 public class TodoController {
 
-    private List<Todo> todos = new ArrayList<>();
+    @Autowired
+    private TodoRepository todoRepository; 
 
     @GetMapping
     public List<Todo> getTodos() {
-        return todos;
+        return todoRepository.findAll();
     }
 
     @PostMapping
     public Todo addTodo(@RequestBody Todo todo) {
-        todos.add(todo);
-        return todo;
+        return todoRepository.save(todo); 
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTodo(@PathVariable Long id) {
-        todos.removeIf(todo -> todo.getId().equals(id));
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+        if (todoRepository.existsById(id)) {
+            todoRepository.deleteById(id);
+            return ResponseEntity.noContent().build(); 
+        } else {
+            return ResponseEntity.notFound().build(); 
+        }
     }
 }

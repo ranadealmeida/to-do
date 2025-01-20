@@ -1,16 +1,25 @@
 package com.rana.todo;
 
-public class Todo {
-    private Long id;
-    private String title;
-    private boolean completed;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Version;
+import jakarta.persistence.Table;
 
-    public Todo() {}
-    public Todo(Long id, String title, boolean completed) {
-        this.id = id;
-        this.title = title;
-        this.completed = completed;
-    }
+@Entity
+@Table(name = "todo")
+public class Todo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    private Long id;
+
+    private String title;
+    private boolean complete;
+
+    @Version
+    private Long version;
 
     public Long getId() {
         return id;
@@ -28,11 +37,11 @@ public class Todo {
         this.title = title;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public boolean isComplete() {
+        return complete;
     }
 
-    public void isCompleted(boolean completed) {
-        this.completed = completed;
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }
