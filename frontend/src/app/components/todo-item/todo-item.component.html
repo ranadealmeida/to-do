@@ -1,0 +1,8 @@
+<div class="form-check">
+    <label class="form-check-label">
+      <input class="checkbox" type="checkbox" [checked]="item.complete" (change)="toggleComplete()" />
+      {{ item.title }}
+    </label>
+    <button class="btn btn-danger btn-sm" (click)="deleteItem()">Delete</button>
+  </div>
+  
